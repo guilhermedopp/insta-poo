@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VIVER+ - Acesso Seguro</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+
+    <main class="container-login">
+        <header class="cabecalho-simples">
+            <h1>VIVER+</h1>
+            <p>Sua rede de compartilhamento</p>
+        </header>
+
+        <section class="area-formulario">
+            <form id="form-login">
+                
+                <div class="grupo-input">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+                </div>
+
+                <div class="grupo-input">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" placeholder="Sua senha" required>
+                </div>
+
+                <button type="submit" class="btn-primario btn-grande">ENTRAR</button>
+                
+            </form>
+
+            <div class="area-links">
+                <p>Ainda não tem conta?</p>
+                <a href="cadastro.html" class="btn-secundario btn-grande">CADASTRAR</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/api.js"></script>
+</body>
+</html>
