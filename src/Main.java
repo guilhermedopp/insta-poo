@@ -1,9 +1,6 @@
-import com.view.LoginView;
-
 public class Main {
     public static void main(String[] args) {
-        LoginView telaLogin = new LoginView();
-        telaLogin.setVisible(true);
-        telaLogin.setLocationRelativeTo(null); 
+        // O servidor web da API será inicializado aqui futuramente
+        System.out.println("Servidor Backend VIVER+ iniciado com sucesso...");
     }
 }
