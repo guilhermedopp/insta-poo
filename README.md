@@ -37,7 +37,7 @@ O projeto foi desenhado com uma separação rigorosa de responsabilidades, divid
 
 ### Backend (Servidor e API REST)
 * **Linguagem:** Java 17
-* **Gestão de Dependências:** Maven
+* **Gestão de Dependências:** Maven (Estrutura `src/main/java`)
 * **Micro-Framework Web:** Javalin (Roteamento e Servidor HTTP)
 * **Base de Dados:** MySQL 8.x
 * **Processamento de Dados:** Jackson (Manipulação de JSON)
@@ -52,19 +52,23 @@ O projeto foi desenhado com uma separação rigorosa de responsabilidades, divid
 ## 🚀 Como Executar o Projeto Localmente
 
 ### 1. Preparar a Base de Dados
-1. Certifique-se de que tem o MySQL instalado.
-2. Crie uma base de dados chamada `viver_db`.
-3. A aplicação encarrega-se da criação de dados ou utilize o script SQL (a ser disponibilizado) para a tabela de `usuarios`.
+1. Certifique-se de que tem o MySQL e um cliente como o DBeaver instalados.
+2. No seu cliente SQL, execute o ficheiro **`script.sql`** (localizado na pasta do backend). Ele irá criar automaticamente a base de dados `viver_db`, a tabela `usuarios` e inserir dados de teste.
 
-### 2. Iniciar o Servidor (Backend)
+### 2. Configurar Credenciais (Segurança)
+Para não expor palavras-passe no código, o projeto utiliza variáveis de ambiente.
+1. Crie uma variável de ambiente no seu sistema operativo chamada **`DB_PASSWORD`**.
+2. O valor dessa variável deve ser a palavra-passe do seu utilizador root do MySQL.
+
+### 3. Iniciar o Servidor (Backend)
 1. Abra a pasta `viver-backend` na sua IDE (VS Code, IntelliJ ou Eclipse).
-2. Deixe o **Maven** descarregar as dependências automaticamente a partir do `pom.xml`.
+2. Deixe o Maven descarregar as dependências automaticamente a partir do `pom.xml`.
 3. Execute o ficheiro `Main.java`. O servidor Javalin iniciará na porta `8080`.
 
-### 3. Abrir a Aplicação (Frontend)
+### 4. Abrir a Aplicação (Frontend)
 1. Navegue até à pasta `viver-frontend`.
 2. Abra o ficheiro `index.html` em qualquer navegador (Chrome, Edge, Firefox).
-3. (Opcional) Utilize uma extensão como o *Live Server* no VS Code para simular o ambiente web completo.
+3. Faça login com o utilizador de teste (`maria@viver.com` / `1234`).
 
 ---
 *Desenvolvido com foco na empatia e na tecnologia acessível.*
