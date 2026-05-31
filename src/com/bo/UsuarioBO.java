@@ -3,17 +3,12 @@ package com.bo;
 import com.vo.UsuarioVO;
 import com.vo.PostVO;
 import com.dao.UsuarioDAO;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UsuarioBO {
     private UsuarioDAO dao = new UsuarioDAO();
-    private List<UsuarioVO> seguidores = new ArrayList<>();
 
-    // --- MÉTODOS DA SEMANA 2 (Gestão de Usuários) ---
-
-    public void cadastrar(UsuarioVO vo) throws Exception {
-        // Validação de dados [cite: 183]
+    public UsuarioVO cadastrar(UsuarioVO vo) throws Exception {
+        // Validações originais mantidas
         if (vo.getNome() == null || vo.getNome().trim().isEmpty()) {
             throw new Exception("O nome não pode estar vazio.");
         }
@@ -25,32 +20,31 @@ public class UsuarioBO {
         }
         
         dao.salvar(vo);
+        return vo; // Retorna o usuário para o Frontend saber quem foi cadastrado
     }
 
     public UsuarioVO login(String email, String senha) throws Exception {
         UsuarioVO usuario = dao.buscarPorEmailESenha(email, senha);
         if (usuario == null) {
-            throw new Exception("E-mail ou senha incorretos. Tente novamente."); // Tratamento de erro [cite: 182]
+            throw new Exception("E-mail ou senha incorretos. Tente novamente.");
         }
-        return usuario;
+        return usuario; // Retorna os dados do usuário para o Frontend
     }
 
-    // --- MÉTODOS ANTIGOS (Regras de Negócio do Feed e Sociais) ---
-
-    // Regra de Negócio: Usuário não pode seguir a si mesmo [cite: 188]
-    public void seguir(UsuarioVO seguidor, UsuarioVO alvo) throws Exception {
+    // Retorna 'true' para a API confirmar que a ação deu certo
+    public boolean seguir(UsuarioVO seguidor, UsuarioVO alvo) throws Exception {
         if (seguidor.getId() == alvo.getId()) {
             throw new Exception("Você não pode seguir a si mesmo!");
         }
-        System.out.println(seguidor.getNome() + " agora segue " + alvo.getNome());
+        return true; 
     }
 
-    // Regra de Negócio: Prevenção a golpes [cite: 123, 131]
-    public void criarPostagem(UsuarioVO autor, String texto) throws Exception {
+    // Retorna o objeto PostVO criado para a API exibir no feed do celular
+    public PostVO criarPostagem(UsuarioVO autor, String texto) throws Exception {
         if (texto.contains("http://") || texto.contains("clique aqui")) {
             throw new Exception("ALERTA DE SEGURANÇA: Evite links externos para sua proteção.");
         }
         PostVO novoPost = new PostVO(1, texto, autor);
-        System.out.println("Postagem criada por: " + autor.getNome());
+        return novoPost; 
     }
 }
