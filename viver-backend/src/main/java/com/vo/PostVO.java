@@ -15,6 +15,10 @@ public class PostVO {
         this.data = new Date();
     }
 
+    public void setData(Date data){
+        this.data = data;
+    }
+
     // Getters
     public String getConteudo() { return conteudo; }
     public UsuarioVO getAutor() { return autor; }

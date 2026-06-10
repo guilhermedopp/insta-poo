@@ -15,3 +15,12 @@ CREATE TABLE usuarios (
 -- Insere uma utilizadora de teste para podermos fazer o primeiro login
 INSERT INTO usuarios (nome, email, senha) 
 VALUES ('Dona Maria', 'maria@viver.com', '1234');
+
+-- Cria a tabela de postagens (Feed de Momentos)
+CREATE TABLE postagens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conteudo TEXT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    usuario_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+);
