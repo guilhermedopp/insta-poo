@@ -24,10 +24,14 @@ if (formLogin) {
             if (resposta.ok) {
                 // Sucesso: O Java confirmou o login
                 const dadosUsuario = await resposta.json();
-                alert('Bem-vindo(a) ao VIVER+, ' + dadosUsuario.nome + '!');
                 
-                // No futuro, esta linha vai enviar o utilizador para o Feed:
-                // window.location.href = 'feed.html';
+                // O código novo foi inserido AQUI de forma segura:
+                // Guarda o utilizador no navegador para sabermos quem está logado no Feed
+                localStorage.setItem('usuarioLogado', JSON.stringify(dadosUsuario));
+                
+                alert('Bem-vindo(a) ao VIVER+, ' + dadosUsuario.nome + '!');
+                window.location.href = 'feed.html'; // Avança de forma dinâmica para o feed
+                
             } else {
                 // Erro: E-mail ou palavra-passe incorretos (regra do UsuarioBO)
                 const mensagemErro = await resposta.text();
