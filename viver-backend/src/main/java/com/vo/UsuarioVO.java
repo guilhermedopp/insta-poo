@@ -3,7 +3,7 @@ package com.vo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore; // <-- A nova importação do Jackson
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.observer.Observer;
 
 public class UsuarioVO {
@@ -13,6 +13,10 @@ public class UsuarioVO {
     private String senha;
     private LocalDate dataNascimento; 
     private List<Observer> seguidores = new ArrayList<>();
+
+    // Construtor vazio exigido pelo Jackson para conversão de JSON (Resolve o erro "no Creators, like default constructor")
+    public UsuarioVO() {
+    }
 
     // Construtor completo 
     public UsuarioVO(int id, String nome, String email, String senha, LocalDate dataNascimento) {
