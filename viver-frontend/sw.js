@@ -4,6 +4,8 @@ const ASSETS_TO_CACHE = [
   './index.html',
   './cadastro.html',
   './feed.html',
+  './perfil.html',
+  './publicar.html',
   './css/style.css',
   './js/api.js',
   './js/pwa-setup.js',
