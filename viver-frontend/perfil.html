@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIVER+ - O Meu Perfil</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="img/logo.png">
+</head>
+<body>
+
+    <main class="tela-acesso" style="max-width: 650px; padding-bottom: 90px; justify-content: flex-start;">
+        
+        <header style="display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 30px; padding-top: 20px;">
+            <div id="avatar-perfil" style="width: 100px; height: 100px; background: var(--cor-primaria); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: bold; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(27, 184, 47, 0.3);">
+                ?
+            </div>
+            <h1 id="nome-perfil" style="font-size: 2.2rem; color: var(--cor-azul); margin-bottom: 5px;">Carregando...</h1>
+            <p id="email-perfil" style="font-size: 1.2rem; color: var(--cor-texto-suave);">...</p>
+            
+            <button id="btn-sair-perfil" class="btn-primario" style="margin-top: 20px; padding: 10px 30px; border-radius: 99px; background: #eefaf0; color: var(--cor-erro); border: 2px solid var(--cor-erro); font-weight: bold; box-shadow: none;">Terminar Sessão</button>
+        </header>
+
+        <div style="width: 100%; height: 3px; background: var(--cor-borda); margin-bottom: 25px; border-radius: 2px;"></div>
+
+        <section>
+            <h2 style="font-size: 1.6rem; text-align: left; margin-bottom: 15px; color: var(--cor-azul);">As minhas memórias</h2>
+            <div id="container-meus-posts">
+                <p style="font-size: 1.2rem; color: var(--cor-texto-suave);">A procurar os seus momentos...</p>
+            </div>
+        </section>
+
+        <nav class="barra-navegacao">
+            <a href="feed.html" class="item-nav">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <span>Início</span>
+            </a>
+            
+            <a href="#" class="item-nav" onclick="alert('Página de Mensagens em construção!')">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                <span>Chat</span>
+            </a>
+
+            <a href="publicar.html" class="item-nav">
+                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                <span>Publicar</span>
+            </a>
+
+            <a href="perfil.html" class="item-nav ativo">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                <span>Perfil</span>
+            </a>
+        </nav>
+
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:8080/api';
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+        // Proteção de acesso
+        if (!usuarioLogado) {
+            window.location.href = 'index.html';
+        } else {
+            // Preencher os dados do perfil
+            document.getElementById('nome-perfil').textContent = usuarioLogado.nome;
+            document.getElementById('email-perfil').textContent = usuarioLogado.email;
+            
+            // Colocar a primeira letra do nome no Avatar
+            document.getElementById('avatar-perfil').textContent = usuarioLogado.nome.charAt(0).toUpperCase();
+        }
+
+        // Ação de Sair (Logout) transferida para o Perfil
+        document.getElementById('btn-sair-perfil').addEventListener('click', () => {
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = 'index.html';
+        });
+
+        // Buscar apenas as publicações deste utilizador
+        async function carregarMeusPosts() {
+            try {
+                // Reaproveitamos a rota existente, mas filtramos no frontend pelo ID do utilizador logado
+                const resposta = await fetch(`${API_URL}/posts`);
+                if (resposta.ok) {
+                    const todosPosts = await resposta.json();
+                    const meusPosts = todosPosts.filter(post => post.autor.id === usuarioLogado.id);
+                    
+                    const container = document.getElementById('container-meus-posts');
+                    container.innerHTML = '';
+
+                    if (meusPosts.length === 0) {
+                        container.innerHTML = '<p style="font-size: 1.2rem; text-align: center; margin-top: 20px;">Ainda não partilhou nenhum momento. Vá à aba "Publicar" para começar!</p>';
+                        return;
+                    }
+
+                    meusPosts.forEach(post => {
+                        const dataFormatada = new Date(post.data).toLocaleDateString('pt-PT', {
+                            day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit'
+                        });
+
+                        const card = document.createElement('article');
+                        card.style.background = '#ffffff';
+                        card.style.border = '3px solid #e9ecef';
+                        card.style.borderRadius = '14px';
+                        card.style.padding = '20px';
+                        card.style.marginBottom = '15px';
+                        card.style.textAlign = 'left';
+
+                        card.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <span style="font-size: 0.95rem; color: gray; font-weight: bold;">${dataFormatada}</span>
+                            </div>
+                            <p style="font-size: 1.3rem; line-height: 1.4; font-weight: 500; color: #111;">${post.conteudo}</p>
+                        `;
+                        container.appendChild(card);
+                    });
+                }
+            } catch (erro) {
+                console.error("Erro ao buscar publicações:", erro);
+            }
+        }
+
+        carregarMeusPosts();
+    </script>
+</body>
+</html>
