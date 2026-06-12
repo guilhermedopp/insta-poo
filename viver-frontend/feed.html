@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIVER+ - Feed de Momentos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <main class="tela-acesso" style="max-width: 650px;">
+        <header class="cabecalho-simples" style="justify-content: space-between; margin-bottom: 20px;">
+            <div>
+                <h1>VIVER+</h1>
+                <p id="saudacao">Olá, ...</p>
+            </div>
+            <button id="btn-sair" class="btn-primario" style="min-height: auto; padding: 10px 20px; border-radius: 8px; font-size: 1rem; background: var(--cor-erro);">Sair</button>
+        </header>
+
+        <section class="area-formulario" style="border-bottom: 3px solid var(--cor-borda); padding-bottom: 20px; margin-bottom: 25px;">
+            <form id="form-publicar">
+                <div class="grupo-input">
+                    <label for="texto-post">O que gostaria de partilhar hoje?</label>
+                    <textarea id="texto-post" placeholder="Escreva aqui o seu pensamento ou carinho..." required style="width: 100%; min-height: 100px; padding: 15px; font-size: 1.2rem; border: 3px solid var(--cor-borda); border-radius: 12px; font-family: Arial, sans-serif; resize: none;"></textarea>
+                </div>
+                <button type="submit" class="btn-primario btn-grande" style="min-height: 55px; padding: 10px;">PUBLICAR NO FEED</button>
+            </form>
+        </section>
+
+        <section>
+            <h2 style="font-size: 1.8rem; text-align: left; margin-bottom: 15px;">Momentos da nossa Rede</h2>
+            <div id="container-posts">
+                <p style="font-size: 1.2rem; color: var(--cor-texto-suave);">A carregar os momentos...</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const API_URL = 'http://localhost:8080/api';
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+
+        // Proteção: Se não estiver logado, volta para o login
+        if (!usuarioLogado) {
+            window.location.href = 'index.html';
+        } else {
+            document.getElementById('saudacao').textContent = `Olá, ${usuarioLogado.nome}! 👋`;
+        }
+
+        // Ação de Sair (Logout)
+        document.getElementById('btn-sair').addEventListener('click', () => {
+            localStorage.removeItem('usuarioLogado');
+            window.location.href = 'index.html';
+        });
+
+        // Função para carregar os posts vindos da API Java
+        async function carregarPosts() {
+            try {
+                const resposta = await fetch(`${API_URL}/posts`);
+                if (resposta.ok) {
+                    const posts = await resposta.json();
+                    const container = document.getElementById('container-posts');
+                    container.innerHTML = '';
+
+                    if (posts.length === 0) {
+                        container.innerHTML = '<p style="font-size: 1.2rem;">Ainda não há partilhas. Seja o primeiro!</p>';
+                        return;
+                    }
+
+                    posts.forEach(post => {
+                        const dataFormatada = new Date(post.data).toLocaleDateString('pt-PT', {
+                            hour: '2-digit', minute: '2-digit'
+                        });
+
+                        const card = document.createElement('article');
+                        card.style.background = '#ffffff';
+                        card.style.border = '3px solid #e9ecef';
+                        card.style.borderRadius = '14px';
+                        card.style.padding = '20px';
+                        card.style.marginBottom = '15px';
+                        card.style.textAlign = 'left';
+
+                        card.innerHTML = `
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <strong style="font-size: 1.25rem; color: var(--cor-azul, #0f5d82);">${post.autor.nome}</strong>
+                                <span style="font-size: 0.95rem; color: gray;">${dataFormatada}</span>
+                            </div>
+                            <p style="font-size: 1.3rem; line-height: 1.4; font-weight: 500; color: #111;">${post.conteudo}</p>
+                        `;
+                        container.appendChild(card);
+                    });
+                }
+            } catch (erro) {
+                console.error("Erro ao ir buscar posts:", erro);
+            }
+        }
+
+        // Submissão de um novo post
+        document.getElementById('form-publicar').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const campoTexto = document.getElementById('texto-post');
+            const texto = campoTexto.value.trim();
+
+            try {
+                const resposta = await fetch(`${API_URL}/posts`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        texto: texto,
+                        autor: usuarioLogado
+                    })
+                });
+
+                if (resposta.ok) {
+                    campoTexto.value = ''; // Limpa a caixa
+                    carregarPosts(); // Recarrega a lista
+                } else {
+                    const msgErro = await resposta.text();
+                    alert(msgErro); // Mostra o alerta anti-fraude caso contenha links
+                }
+            } catch (erro) {
+                alert("Não foi possível publicar. Verifique o servidor Java.");
+            }
+        });
+
+        // Carrega as publicações assim que abre a página
+        carregarPosts();
+    </script>
+</body>
+</html>
