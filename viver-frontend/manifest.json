@@ -1,0 +1,18 @@
+{
+  "name": "VIVER+ Rede Social",
+  "short_name": "VIVER+",
+  "description": "Rede social acessível de partilha de momentos e socialização.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f7fbfd",
+  "theme_color": "#1bb82f",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3652/3652191.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -4,35 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>VIVER+ - Criar Conta</title>
-
     <link rel="stylesheet" href="css/style.css">
     <link rel="manifest" href="manifest.json">
 </head>
 <body>
-
     <main class="tela-acesso">
         <header class="marca">
-            <svg class="marca-icone" viewBox="0 0 120 120" aria-hidden="true">
-                <path class="tronco" d="M58 94V60c-12 9-24 10-36 7 15-2 27-9 36-23v-9h8v23c8-9 18-15 32-17-13 8-22 18-28 31v22h28v8H24v-8h34Z"/>
-                <circle class="folha" cx="31" cy="36" r="8"/>
-                <circle class="folha" cx="46" cy="23" r="8"/>
-                <circle class="folha" cx="64" cy="18" r="9"/>
-                <circle class="folha" cx="83" cy="25" r="8"/>
-                <circle class="folha" cx="96" cy="41" r="8"/>
-                <circle class="folha" cx="77" cy="45" r="8"/>
-                <circle class="folha" cx="48" cy="46" r="8"/>
-                <path class="coracao" d="M60 51c-10-7-16-12-16-20 0-6 4-10 10-10 3 0 6 2 8 5 2-3 5-5 8-5 6 0 10 4 10 10 0 8-6 13-18 21l-2 1Z"/>
-            </svg>
-
+            <img src="img/logo.png" alt="Logótipo Oficial do VIVER+" class="marca-icone" style="object-fit: contain;">
             <div>
                 <h1>VIVER+</h1>
-                <p>Rede Social de Carinho e Conexao</p>
+                <p>Rede Social de Carinho e Conexão</p>
             </div>
         </header>
 
         <section class="area-formulario">
             <h2>CRIAR CONTA</h2>
-
             <form id="form-cadastro">
                 <div class="grupo-input">
                     <label for="nome">Nome Completo</label>
@@ -55,6 +41,16 @@
                 </div>
 
                 <div class="grupo-input">
+                    <label for="dataNascimento">Data de Nascimento</label>
+                    <div class="campo-com-icone">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/>
+                        </svg>
+                        <input type="date" id="dataNascimento" required>
+                    </div>
+                </div>
+
+                <div class="grupo-input">
                     <label for="senha">Senha</label>
                     <div class="campo-com-icone">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -62,21 +58,21 @@
                         </svg>
                         <input type="password" id="senha" placeholder="Ex: ********" required minlength="3">
                     </div>
-                    <small>Crie uma senha segura e facil de lembrar.</small>
+                    <small>Crie uma senha segura e fácil de lembrar.</small>
                 </div>
 
                 <p id="mensagem-cadastro" class="mensagem" aria-live="polite"></p>
-
                 <button type="submit" class="btn-primario btn-grande">CRIAR MINHA CONTA</button>
             </form>
 
             <div class="area-links">
-                <p>Ja tem uma conta?</p>
+                <p>Já tem uma conta?</p>
                 <a href="index.html">Entrar</a>
             </div>
         </section>
     </main>
 
     <script src="js/api.js"></script>
+    <script src="js/pwa-setup.js"></script>
 </body>
 </html>
