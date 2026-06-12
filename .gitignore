@@ -19,12 +19,18 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 
 # =========================
+# Frontend e Scripts (Node.js / NPM)
+# =========================
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnp.*
+
+# =========================
 # IDEs (VS Code, Eclipse, IntelliJ)
 # =========================
-# Ignorar configurações do VS Code (MUITO IMPORTANTE: Aqui está o launch.json com a sua senha!)
+# Ignorar configurações do VS Code
 .vscode/
-
-# Ignorar ficheiros gerados pelas extensões de Java
 .classpath
 .project
 .settings/
@@ -40,6 +46,9 @@ buildNumber.properties
 .env.local
 .env.*
 *.log
+
+# Ocultar o script de arranque, caso tenha colocado a sua palavra-passe lá dentro!
+iniciar.bat
 
 # =========================
 # Ficheiros do Sistema Operativo
