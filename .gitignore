@@ -16,6 +16,7 @@ viver-backend/target/
 .classpath
 .project
 .settings/
+.github
 
 # =========================
 # Ficheiros do Sistema Operativo
