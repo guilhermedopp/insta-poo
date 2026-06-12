@@ -30,7 +30,7 @@ yarn-error.log*
 # IDEs (VS Code, Eclipse, IntelliJ)
 # =========================
 # Ignorar configurações do VS Code
-#.vscode/
+.vscode/
 .classpath
 .project
 .settings/
@@ -48,7 +48,7 @@ yarn-error.log*
 *.log
 
 # Ocultar o script de arranque, caso tenha colocado a sua palavra-passe lá dentro!
-#iniciar.bat
+iniciar.bat
 
 # =========================
 # Ficheiros do Sistema Operativo
