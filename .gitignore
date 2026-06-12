@@ -1,22 +1,45 @@
 # =========================
 # Backend (Java / Maven)
 # =========================
-viver-backend/target/
+# Ignorar pastas de compilação
+target/
 *.class
 *.jar
 *.war
 
+# Ignorar ficheiros temporários do Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
 # =========================
-# Editores de Código (VS Code, IntelliJ, Eclipse)
+# IDEs (VS Code, Eclipse, IntelliJ)
 # =========================
+# Ignorar configurações do VS Code (MUITO IMPORTANTE: Aqui está o launch.json com a sua senha!)
 .vscode/
-.idea/
-*.iml
-.metadata/
+
+# Ignorar ficheiros gerados pelas extensões de Java
 .classpath
 .project
 .settings/
-.github
+.factorypath
+*.code-workspace
+.idea/
+*.iml
+
+# =========================
+# Segurança e Variáveis de Ambiente
+# =========================
+.env
+.env.local
+.env.*
+*.log
 
 # =========================
 # Ficheiros do Sistema Operativo
