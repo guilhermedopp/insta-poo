@@ -4,7 +4,7 @@ echo       INICIANDO O SISTEMA VIVER+
 echo =========================================
 
 
-set DB_PASSWORD=digite_sua_senha_aqui
+set DB_PASSWORD=Guidoxera13@
 
 :: 2. Inicia o servidor backend numa nova janela
 echo [1/2] A ligar o servidor Java (Javalin)...
