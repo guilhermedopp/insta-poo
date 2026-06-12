@@ -72,7 +72,14 @@ Certifique-se de que tem o **Node.js** e o **Maven** instalados na sua máquina.
 
 1. Abra o terminal na raiz do projeto (`viver-mais`).
 2. Execute o seguinte comando:
-   ```bash
-   npm run dev
+   
+   > `npm run dev`
+
+3. **O que acontece agora?** O script irá, simultaneamente:
+   - Compilar o código Java e ligar a API REST na porta `8080`.
+   - Iniciar um servidor web estático e abrir o Frontend PWA no seu navegador padrão.
+
+*(Dica: Para desenvolver no Backend de forma ágil sem reiniciar manualmente o Java a cada mudança, utilize o comando `npm run watch`).*
+
 ---
 *Desenvolvido com foco na empatia e na tecnologia acessível.*
