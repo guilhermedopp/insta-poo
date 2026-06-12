@@ -15,6 +15,7 @@ A plataforma foca-se nas necessidades essenciais de socialização digital, gara
 - **Autenticação Acessível:** Ecrãs de Login e Registo com botões de grande dimensão, logótipos claros de orientação e feedback visual amigável.
 - **Barreira de Proteção (60+):** Validação estrita a nível de servidor que garante que a comunidade é exclusiva para pessoas com 60 anos ou mais.
 - **Feed de Momentos:** Um espaço simples para partilhar textos e pensamentos de forma intuitiva.
+- **Instalação Nativa e Offline (PWA):** Graças à implementação de um *Service Worker*, a aplicação pode ser instalada diretamente no ecrã inicial do telemóvel e tem os seus recursos em cache.
 - **Sistema de Notificações Inteligente:** Alertas em tempo real sobre novas interações (implementado através do padrão de desenho *Observer*).
 - **Proteção Anti-Fraude:** Regras de negócio rigorosas que bloqueiam a partilha de links externos não verificados, protegendo o público idoso contra burlas e *phishing*.
 
@@ -43,32 +44,35 @@ O projeto foi desenhado com uma separação rigorosa de responsabilidades, divid
 * **Processamento de Dados:** Jackson (Manipulação de JSON)
 
 ### Frontend (Interface Mobile/Web)
-* **Estrutura:** PWA (Progressive Web App) com `manifest.json` para instalação nativa no telemóvel.
+* **Estrutura:** PWA (Progressive Web App) com `manifest.json` e `sw.js` (Service Worker) para funcionamento otimizado.
 * **Linguagem:** HTML5, CSS3 (variáveis de alto contraste).
 * **Comunicação:** JavaScript (Vanilla JS / Fetch API).
+
+### Ferramentas de Desenvolvimento e Automação
+* **Node.js & NPM:** Utilizados como *Task Runners* (`package.json`) para orquestrar o ambiente de desenvolvimento.
+* **Nodemon:** Configurado para observar alterações no código Java e recompilar o servidor automaticamente (*Hot Reload*).
+* **Serve:** Servidor HTTP local para contornar bloqueios de CORS e simular o PWA em ambiente real de produção.
 
 ---
 
 ## 🚀 Como Executar o Projeto Localmente
 
+Graças à arquitetura de automação implementada, iniciar o ecossistema completo é um processo rápido e unificado.
+
 ### 1. Preparar a Base de Dados
-1. Certifique-se de que tem o MySQL e um cliente como o DBeaver instalados.
-2. No seu cliente SQL, execute o ficheiro **`script.sql`** (localizado na pasta do backend). Ele irá criar automaticamente a base de dados `viver_db`, a tabela `usuarios` (com suporte à data de nascimento), a tabela `postagens` e inserir utilizadores de teste.
+1. Certifique-se de que tem o MySQL e um cliente SQL (como o DBeaver) instalados.
+2. Execute o ficheiro **`script.sql`** (na pasta do backend). Ele irá criar a base de dados `viver_db`, a tabela `usuarios` (com suporte atualizado à data de nascimento) e inserir a utilizadora de teste.
 
 ### 2. Configurar Credenciais (Segurança)
-Para não expor palavras-passe no código, o projeto utiliza variáveis de ambiente.
-1. Crie uma variável de ambiente no seu sistema operativo chamada **`DB_PASSWORD`** (ou configure diretamente no `launch.json` do VS Code).
-2. O valor dessa variável deve ser a palavra-passe do seu utilizador root do MySQL.
+1. Crie uma variável de ambiente no seu sistema operativo chamada **`DB_PASSWORD`** contendo a palavra-passe do seu utilizador root do MySQL.
+*(Em alternativa, pode injetar a senha descomentando a linha apropriada no ficheiro `iniciar.bat`).*
 
-### 3. Iniciar o Servidor (Backend)
-1. Abra a pasta `viver-backend` na sua IDE (VS Code, IntelliJ ou Eclipse).
-2. Deixe o Maven descarregar as dependências automaticamente a partir do `pom.xml`.
-3. Execute o ficheiro `Main.java` (recomendado utilizar a configuração de execução da IDE para carregar o `.env`). O servidor Javalin iniciará na porta `8080`.
+### 3. Iniciar o Sistema (A Mágica da Automação)
+Certifique-se de que tem o **Node.js** e o **Maven** instalados na sua máquina.
 
-### 4. Abrir a Aplicação (Frontend)
-1. Navegue até à pasta `viver-frontend`.
-2. Abra o ficheiro `index.html` em qualquer navegador (Chrome, Edge, Firefox).
-3. Faça login com o utilizador de teste (`maria@viver.com` / `1234`).
-
+1. Abra o terminal na raiz do projeto (`viver-mais`).
+2. Execute o seguinte comando:
+   ```bash
+   npm run dev
 ---
 *Desenvolvido com foco na empatia e na tecnologia acessível.*
