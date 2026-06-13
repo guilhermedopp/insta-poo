@@ -10,13 +10,7 @@ public class Main {
         
         Javalin app = Javalin.create(config -> {
             config.bundledPlugins.enableCors(cors -> {
-                cors.addRule(it -> {
-                    it.anyHost();
-                    it.allowMethod("GET");
-                    it.allowMethod("POST");
-                    it.allowMethod("OPTIONS");
-                    it.allowHeader("Content-Type");
-                });
+                cors.addRule(it -> it.anyHost());
             });
         }).start(8080);
 
